@@ -3,10 +3,10 @@
 #include <stdint.h>
 
 /*
- * testprogramma voor comperator
+ * testprogramma voor comparator
  * 2017 Harry Broeders
- * Als de comperator correct functioneert, gaat de groene led branden.
- * Als de comperator niet correct functioneert, gaat de rode led branden.
+ * Als de comparator correct functioneert, gaat de groene led branden.
+ * Als de comparator niet correct functioneert, gaat de rode led branden.
  * Zodra een fout gevonden is stopt het programma. Dus je kunt door de outputs
  * van het programma te testen, zien in welke situatie de fout is opgetreden. 
  *
@@ -27,13 +27,13 @@ int main(void)
     // stop watchdog timer
     WDTCTL = WDTPW | WDTHOLD;
     
-    // Pin 1.0 = rode led
-    // Pin 1.6 = groene led
+    // Pin 1.0 = groene led
+    // Pin 1.6 = rode led
     
     P1DIR = 1<<6 | 1<<0;
     P1OUT = 0;
     P2DIR = 1<<5 | 1<<4 | 1<<3 | 1<<2 | 1<<1 | 1<<0;
-    P1OUT = 0;
+    P2OUT = 0;
 
     uint8_t a, b;
     bool GT, LT, EQ;
@@ -50,12 +50,12 @@ int main(void)
              
             if (GT != (a > b) || LT != (a < b) || EQ != (a == b))
             {
-                P1OUT |= 1<<0;
+                P1OUT |= 1<<6;
                 while (1); // stop when error is found
             }
         }
     }
-    P1OUT |= 1<<6;
+    P1OUT |= 1<<0;
     	
-	return 0;
+    return 0;
 }
